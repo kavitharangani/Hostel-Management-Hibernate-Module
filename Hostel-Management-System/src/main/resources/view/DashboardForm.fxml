@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" prefHeight="807.0" prefWidth="1311.0" style="-fx-background-color: #F1F6F5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.DashboardForm">
+    <children>
+        <ImageView fitHeight="807.0" fitWidth="1552.0" pickOnBounds="true">
+            <image>
+                <Image url="@../img/wavy-abstract-shapes.jpg" />
+            </image>
+        </ImageView>
+        <AnchorPane fx:id="sidePane" layoutX="-37.0" layoutY="14.0" prefHeight="775.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 40;">
+            <children>
+                <JFXButton fx:id="btnLogout" layoutX="45.0" layoutY="569.0" onAction="#btnLogoutOnAction" prefHeight="124.0" prefWidth="142.0" style="-fx-background-color: #ECF2FF; -fx-background-radius: 15;" text=" ">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+                <JFXButton fx:id="btnStudents" layoutX="47.0" layoutY="35.0" onAction="#btnStudentsOnAction" prefHeight="124.0" prefWidth="142.0" style="-fx-background-color: #ECF2FF; -fx-background-radius: 15;" text=" ">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+                <JFXButton fx:id="btnRooms" layoutX="45.0" layoutY="223.0" onAction="#btnRoomsOnAction" prefHeight="124.0" prefWidth="142.0" style="-fx-background-color: #ECF2FF; -fx-background-radius: 15;" text=" ">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+                <JFXButton fx:id="btnReservation" layoutX="45.0" layoutY="393.0" onAction="#btnReservationOnAction" prefHeight="124.0" prefWidth="142.0" style="-fx-background-color: #ECF2FF; -fx-background-radius: 15;" text=" ">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+            <Label layoutX="71.0" layoutY="128.0" text="Student Form">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#1d2a4a" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label layoutX="71.0" layoutY="317.0" text="Room Form">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#1d2a4a" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label layoutX="56.0" layoutY="479.0" text="Reservation  Form">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#1d2a4a" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <ImageView fitHeight="76.0" fitWidth="84.0" layoutX="68.0" layoutY="45.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/student.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="76.0" fitWidth="84.0" layoutX="68.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/room.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="76.0" fitWidth="84.0" layoutX="68.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/reservation.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="61.0" layoutY="664.0" text="Back  Form">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#1d2a4a" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <ImageView fitHeight="76.0" fitWidth="84.0" layoutX="74.0" layoutY="581.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/back.png" />
+               </image>
+            </ImageView>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="pane" layoutX="185.0" layoutY="65.0" prefHeight="690.0" prefWidth="1321.0" style="-fx-background-color: white; -fx-background-radius: 40;">
+            <children>
+                <Label layoutX="281.0" layoutY="14.0" prefHeight="59.0" prefWidth="783.0" text="Welcome to  Hostel Management System...." textAlignment="CENTER" textFill="#574ce5">
+                    <font>
+                        <Font name="Goudy Old Style Italic" size="51.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="1067.0" layoutY="14.0" prefHeight="40.0" prefWidth="405.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+            <children>
+                <Label fx:id="lblTime" layoutX="57.0" layoutY="9.0" prefHeight="16.0" prefWidth="334.0">
+                    <font>
+                        <Font name="System Italic" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
