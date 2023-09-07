@@ -1,5 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.bo.custom.RoomBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.RoomDAO;
@@ -40,14 +42,21 @@ public class RoomBOImpl implements RoomBO {
     }
 
     @Override
-    public List<RoomDTO> getAllRoom() {
-        List<RoomDTO> allRoom= new ArrayList<>();
+    public ObservableList<RoomDTO> getAllRoom() {
+        ObservableList<RoomDTO> allRoom = FXCollections.observableArrayList(); // Initialize ObservableList
         List<Room> all = roomDAO.getAll();
         for (Room room : all) {
-//            StudentDTO studentDTO=new StudentDTO(room.getStudent().getSId());
-//            RoomDTO roomDTO = new RoomDTO(reservation.getRoom().getRoom_type_id());
-            allRoom.add(new RoomDTO(room.getRoom_type_id(),room.getType(),room.getKey_money(),room.getQty()));
+            allRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
         }
-        return getAllRoom();
+        return allRoom;
     }
+//        List<RoomDTO> allRoom= new ArrayList<>();
+//        List<Room> all = roomDAO.getAll();
+//        for (Room room : all) {
+////            StudentDTO studentDTO=new StudentDTO(room.getStudent().getSId());
+////            RoomDTO roomDTO = new RoomDTO(reservation.getRoom().getRoom_type_id());
+//            allRoom.add(new RoomDTO(room.getRoom_type_id(),room.getType(),room.getKey_money(),room.getQty()));
+//        }
+//        return getAllRoom();
+//    }
 }

@@ -345,19 +345,59 @@ public class ReservationController implements Initializable {
         LocalDate localDate = date.getValue();
         String sid = String.valueOf(cmbStdId.getValue());
         String rid = String.valueOf(cmbRoomTypeId.getValue());
-        Double keyMoney = Double.valueOf(lblPricePerRoom.getText());
-        Double balance = Double.valueOf(lblBalance.getText());
+
+        if (!rid.matches("^[H0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Room ID format").show();
+            return;
+        }
+
+        if (!sid.matches("^[S0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID format").show();
+            return;
+        }
+
+
+        if (localDate == null) {
+            new Alert(Alert.AlertType.ERROR, "Date of Reservation is required").show();
+            return;
+        }
+
+
+        Double keyMoney;
+        try {
+            keyMoney = Double.valueOf(lblPricePerRoom.getText());
+            if (keyMoney < 0) {
+                new Alert(Alert.AlertType.ERROR, "Key money must be a positive number").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid key money format").show();
+            return;
+        }
+
+        Double balance;
+        try {
+            balance = Double.valueOf(lblBalance.getText());
+            if (balance < 0) {
+                new Alert(Alert.AlertType.ERROR, "Balance must be a positive number").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid balance format").show();
+            return;
+        }
 
         RoomDTO roomDTO = new RoomDTO(rid);
         StudentDTO studentDTO = new StudentDTO(sid);
 
-        boolean isReserved = reservationBO.addRevervation(new ReservationDTO(id, localDate, keyMoney, balance, roomDTO , studentDTO));
-        if (isReserved){
+        boolean isReserved = reservationBO.addRevervation(new ReservationDTO(id, localDate, keyMoney, balance, roomDTO, studentDTO));
+
+        if (isReserved) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved!!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Error!!").show();
         }
-    }
+        }
 
     @FXML
     void btnPayOnAction(ActionEvent event) {

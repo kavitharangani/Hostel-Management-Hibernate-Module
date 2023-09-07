@@ -68,15 +68,36 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String id = roomid.getText();
-        boolean isDelete = false;
+        String roomIdInput = roomid.getText().trim();
+        if (!roomIdInput.matches("^[H0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Room ID format").show();
+            return;
+        }
+
+        String id = roomIdInput;
+
+        boolean roomExists = false;
         try {
-            isDelete = roomBO.delete(id);
+            roomExists = roomBO.delete(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (isDelete) {
-            new Alert(Alert.AlertType.CONFIRMATION, "OK").show();
+
+        if (roomExists) {
+            boolean isDelete = false;
+            try {
+                isDelete = roomBO.delete(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            if (isDelete) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Room deleted successfully").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Room deleted successfully").show();
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room not found").show();
         }
         roomid.setText("");
         roomtype.setText("");
@@ -86,12 +107,48 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = roomid.getText();
-        String type = roomtype.getText();
-        Double keyMoney = Double.valueOf(roomkeymoney.getText());
-        Integer qty = Integer.valueOf(roomqty.getText());
+        String roomIdInput = roomid.getText().trim();
+        if (!roomIdInput.matches("^[H0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Room ID format").show();
+            return;
+        }
+
+        String id = roomIdInput;
+        String type = roomtype.getText().trim();
+        String keyMoneyInput = roomkeymoney.getText().trim();
+        String qtyInput = roomqty.getText().trim();
 
 
+        if (type.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Room type cannot be empty").show();
+            return;
+        }
+
+
+        Double keyMoney;
+        try {
+            keyMoney = Double.parseDouble(keyMoneyInput);
+            if (keyMoney < 0) {
+                new Alert(Alert.AlertType.ERROR, "Key money must be a positive number").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid key money format").show();
+            return;
+        }
+
+
+        Integer qty;
+        try {
+            qty = Integer.parseInt(qtyInput);
+            if (qty < 1) {
+                new Alert(Alert.AlertType.ERROR, "Quantity must be a positive integer").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid quantity format").show();
+            return;
+        }
         RoomDTO room = new RoomDTO(id, type, keyMoney, qty);
 
         boolean isSave = false;
@@ -100,9 +157,13 @@ public class RoomFormController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         if (isSave) {
-            new Alert(Alert.AlertType.CONFIRMATION, "ok").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Room saved successfully").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room saved successfully").show();
         }
+
         roomid.setText("");
         roomtype.setText("");
         roomkeymoney.setText("");
@@ -111,7 +172,13 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-        String id = roomid.getText();
+        String roomIdInput = roomid.getText().trim();
+        if (!roomIdInput.matches("^[H0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Room ID format").show();
+            return;
+        }
+
+        String id = roomIdInput;
 
         RoomDTO room = null;
         try {
@@ -125,15 +192,56 @@ public class RoomFormController implements Initializable {
             roomtype.setText(room.getType());
             roomkeymoney.setText(String.valueOf(room.getKey_money()));
             roomqty.setText(String.valueOf(room.getQty()));
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room  found").show();
         }
+
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = roomid.getText();
-        String type = roomtype.getText();
-        Double keyMoney = Double.valueOf(roomkeymoney.getText());
-        Integer qty = Integer.valueOf(roomqty.getText());
+        String roomIdInput = roomid.getText().trim();
+        if (!roomIdInput.matches("^[H0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Room ID format").show();
+            return;
+        }
+
+        String id = roomIdInput;
+        String type = roomtype.getText().trim();
+        String keyMoneyInput = roomkeymoney.getText().trim();
+        String qtyInput = roomqty.getText().trim();
+
+
+        if (type.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Room type cannot be empty").show();
+            return;
+        }
+
+
+        Double keyMoney;
+        try {
+            keyMoney = Double.parseDouble(keyMoneyInput);
+            if (keyMoney < 0) {
+                new Alert(Alert.AlertType.ERROR, "Key money must be a positive number").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid key money format").show();
+            return;
+        }
+
+
+        Integer qty;
+        try {
+            qty = Integer.parseInt(qtyInput);
+            if (qty < 1) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Quantity must be a positive integer").show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid quantity format").show();
+            return;
+        }
 
         RoomDTO room = new RoomDTO(id, type, keyMoney, qty);
         boolean isUpdate = false;
@@ -142,8 +250,11 @@ public class RoomFormController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         if (isUpdate) {
-            new Alert(Alert.AlertType.CONFIRMATION, "OK").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Room updated successfully").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room updated successfully").show();
         }
         roomid.setText("");
         roomtype.setText("");

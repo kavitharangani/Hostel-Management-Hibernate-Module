@@ -59,24 +59,48 @@ public class StudentFormController implements Initializable {
     }
     @FXML
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        String id = studentid.getText();
-        String name = studentname.getText();
-        String address=studentaddress.getText();
-        String contact=studentcontact.getText();
-        LocalDate localDate = date.getValue();
-        Date DOB=java.sql.Date.valueOf(localDate);
-        String gender =null;
-
-        if(male.isSelected()){
-
-            gender = "Male";
-
-        }else if(female.isSelected()){
-
-            gender = "Female";
-
+        String studentIdInput = studentid.getText().trim();
+        if (!studentIdInput.matches("^[S0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID format").show();
+            return;
         }
-        StudentDTO student = new StudentDTO(id, name, address, contact, (java.sql.Date) DOB,gender);
+
+        String name = studentname.getText().trim();
+        if (name.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Name cannot be empty").show();
+            return;
+        }
+
+
+        String address = studentaddress.getText().trim();
+        if (address.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Address cannot be empty").show();
+            return;
+        }
+
+
+        String contact = studentcontact.getText().trim();
+        if (contact.isEmpty() || !contact.matches("\\d{10}")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid contact number").show();
+            return;
+        }
+
+        LocalDate localDate = date.getValue();
+        if (localDate == null) {
+            new Alert(Alert.AlertType.ERROR, "Date of Birth is required").show();
+            return;
+        }
+
+        Date DOB = java.sql.Date.valueOf(localDate);
+
+        String gender = null;
+        if (male.isSelected()) {
+            gender = "Male";
+        } else if (female.isSelected()) {
+            gender = "Female";
+        }
+
+        StudentDTO student = new StudentDTO(studentIdInput, name, address, contact, (java.sql.Date) DOB, gender);
 
         boolean isSave = false;
         try {
@@ -84,59 +108,118 @@ public class StudentFormController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         if (isSave) {
-            new Alert(Alert.AlertType.CONFIRMATION, "ok").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Student saved successfully").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Student saved successfully").show();
         }
+
+        clearAll();
+
     }
     @FXML
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-        if (studentid.getText().matches("^[S0-9]{4}$")) {
-            String id = studentid.getText();
+        String studentIdInput = studentid.getText().trim();
+        if (!studentIdInput.matches("^[S0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID format").show();
+            return;
+        }
+
+        String id = studentIdInput;
+
+        boolean studentExists = false;
+        try {
+            studentExists = studentBO.delete(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (studentExists) {
             boolean isDelete = false;
             try {
                 isDelete = studentBO.delete(id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
             if (isDelete) {
-                new Alert(Alert.AlertType.CONFIRMATION, "OK").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Student deleted successfully").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Student deleted successfully").show();
             }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Student not found").show();
         }
+
+        clearAll();
+
     }
     @FXML
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String id = studentid.getText();
-        String name = studentname.getText();
-        String address=studentaddress.getText();
-        String contact=studentcontact.getText();
-        LocalDate localDate = date.getValue();
-        Date DOB=java.sql.Date.valueOf(localDate);
-        String gender =null;
-
-        if(male.isSelected()){
-
-            gender = "Male";
-
-        }else if(female.isSelected()){
-
-            gender = "Female";
-
+        String studentIdInput = studentid.getText().trim();
+        if (!studentIdInput.matches("^[S0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID format").show();
+            return;
         }
 
-        StudentDTO student = new StudentDTO(id, name, address, contact, (java.sql.Date) DOB, gender);
+
+        String name = studentname.getText().trim();
+        if (name.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Name cannot be empty").show();
+            return;
+        }
+
+
+        String address = studentaddress.getText().trim();
+        if (address.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Address cannot be empty").show();
+            return;
+        }
+
+
+        String contact = studentcontact.getText().trim();
+        if (contact.isEmpty() || !contact.matches("\\d{10}")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid contact number").show();
+            return;
+        }
+
+        LocalDate localDate = date.getValue();
+        Date DOB = java.sql.Date.valueOf(localDate);
+
+        String gender = null;
+        if (male.isSelected()) {
+            gender = "Male";
+        } else if (female.isSelected()) {
+            gender = "Female";
+        }
+
+        StudentDTO student = new StudentDTO(studentIdInput, name, address, contact, (java.sql.Date) DOB, gender);
+
         boolean isUpdate = false;
         try {
             isUpdate = studentBO.Update(student);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         if (isUpdate) {
-            new Alert(Alert.AlertType.CONFIRMATION, "OK").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Update successful").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Update successful").show();
         }
+
+        clearAll();
     }
     @FXML
     public void btnSearchOnAction(ActionEvent actionEvent) {
-        String id = studentid.getText();
+        String studentIdInput = studentid.getText().trim();
+        if (!studentIdInput.matches("^[S0-9]{4}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID format").show();
+            return;
+        }
+
+        String id = studentIdInput;
 
         StudentDTO student = null;
         try {
@@ -158,8 +241,30 @@ public class StudentFormController implements Initializable {
             } else if ("Female".equals(gender)) {
                 female.setSelected(true);
             }
-
+            boolean isSave = false;
+            try {
+                isSave = studentBO.Update(student);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (isSave) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Search successful").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Search successful").show();
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Student not found").show();
         }
+    }
+
+    private void clearAll() {
+        studentid.setText("");
+        studentname.setText("");
+        studentaddress.setText("");
+        studentcontact.setText("");
+        date.setValue(null);
+        male.setSelected(false);
+        female.setSelected(false);
     }
 
     @Override
