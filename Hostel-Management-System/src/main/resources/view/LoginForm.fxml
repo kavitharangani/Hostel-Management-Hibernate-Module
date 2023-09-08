@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1095.0" style="-fx-background-color: D2E9E9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1029.0" styleClass="background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
    <children>
-      <AnchorPane layoutX="50.0" layoutY="40.0" prefHeight="701.0" prefWidth="920.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+      <AnchorPane layoutX="53.0" layoutY="25.0" prefHeight="701.0" prefWidth="920.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
             <Separator layoutX="386.0" layoutY="16.0" orientation="VERTICAL" prefHeight="672.0" prefWidth="20.0" />
             <Label layoutX="454.0" layoutY="25.0" text="Welcome back :) ">
