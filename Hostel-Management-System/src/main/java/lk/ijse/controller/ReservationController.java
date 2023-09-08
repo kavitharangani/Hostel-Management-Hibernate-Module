@@ -395,7 +395,7 @@ public class ReservationController implements Initializable {
         if (isReserved) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved!!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Error!!").show();
+            new Alert(Alert.AlertType.ERROR, "saved !!!").show();
         }
         }
 
