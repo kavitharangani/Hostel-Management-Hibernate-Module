@@ -42,11 +42,11 @@ public class RoomBOImpl implements RoomBO {
     }
 
     @Override
-    public ObservableList<RoomDTO> getAllRoom() {
-        ObservableList<RoomDTO> allRoom = FXCollections.observableArrayList(); // Initialize ObservableList
+    public List<RoomDTO> getAllRoom() {
+        List<RoomDTO> allRoom= new ArrayList<>();
         List<Room> all = roomDAO.getAll();
         for (Room room : all) {
-            allRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
+            allRoom.add(new RoomDTO(room.getRoom_type_id(),room.getType(),room.getKey_money(),room.getQty()));
         }
         return allRoom;
     }

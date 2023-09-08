@@ -4,6 +4,7 @@ import lk.ijse.bo.SuperBo;
 import lk.ijse.model.StudentDTO;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface StudentBO extends SuperBo {
 
@@ -14,4 +15,7 @@ public interface StudentBO extends SuperBo {
     StudentDTO search(String id) throws SQLException;
 
     boolean Update(StudentDTO dto) throws SQLException;
+
+    List<StudentDTO> getAllStudent();
+
 }

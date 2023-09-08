@@ -101,14 +101,14 @@
             <Image url="@../img/Student.gif" />
          </image>
       </ImageView>
-      <TableView layoutX="835.0" layoutY="135.0" prefHeight="414.0" prefWidth="451.0">
+      <TableView fx:id="tblstudent" layoutX="835.0" layoutY="135.0" prefHeight="414.0" prefWidth="451.0">
         <columns>
-          <TableColumn prefWidth="66.0" text=" ID" />
-          <TableColumn prefWidth="77.0" text="Name" />
-            <TableColumn prefWidth="79.0" text="Address" />
-            <TableColumn prefWidth="78.0" text="Contact" />
-            <TableColumn prefWidth="75.0" text="Date" />
-            <TableColumn prefWidth="75.0" text="Gender" />
+          <TableColumn fx:id="clmid" prefWidth="66.0" text=" ID" />
+          <TableColumn fx:id="clmname" prefWidth="77.0" text="Name" />
+            <TableColumn fx:id="clmaddress" prefWidth="79.0" text="Address" />
+            <TableColumn fx:id="clmcontact" prefWidth="78.0" text="Contact" />
+            <TableColumn fx:id="clmdob" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="clmgender" prefWidth="75.0" text="Gender" />
         </columns>
       </TableView>
    </children>

@@ -264,8 +264,8 @@ public class RoomFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        getAll();
-//        setCellValueFactory();
+        getAll();
+        setCellValueFactory();
     }
 
     private void setCellValueFactory() {

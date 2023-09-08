@@ -2,12 +2,15 @@ package lk.ijse.dao.custom.impl;
 
 
 import lk.ijse.dao.custom.StudentDAO;
+import lk.ijse.entity.Room;
 import lk.ijse.entity.Student;
 import lk.ijse.utill.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
 
@@ -48,4 +51,14 @@ public class StudentDAOImpl implements StudentDAO {
         return false;
     }
 
+    @Override
+    public List<Student> getAll() {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query q = session.createQuery("from Student ");
+        List<Student>students =q.list();
+        transaction.commit();
+        session.close();
+        return students;
+    }
 }

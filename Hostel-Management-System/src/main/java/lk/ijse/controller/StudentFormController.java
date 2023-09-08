@@ -3,14 +3,22 @@ package lk.ijse.controller;
 
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.StudentBO;
+import lk.ijse.model.RoomDTO;
 import lk.ijse.model.StudentDTO;
+import lk.ijse.model.tm.RoomTM;
+import lk.ijse.model.tm.StudentTM;
 import lk.ijse.utill.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -44,7 +52,29 @@ public class StudentFormController implements Initializable {
     @FXML
     private JFXRadioButton female;
 
+    @FXML
+    private TableView<StudentTM> tblstudent;
+
+    @FXML
+    private TableColumn<?, ?> clmid;
+
+    @FXML
+    private TableColumn<?, ?> clmname;
+
+    @FXML
+    private TableColumn<?, ?> clmaddress;
+
+    @FXML
+    private TableColumn<?, ?> clmcontact;
+
+    @FXML
+    private TableColumn<?, ?> clmdob;
+
+    @FXML
+    private TableColumn<?, ?> clmgender;
+
     StudentBO studentBO= (StudentBO) BOFactory.getBoFactory().getBo(BOFactory.BOTypes.STUDENT);
+    ObservableList<StudentTM> observableList;
 
     @FXML
     public void btnClearOnAction(ActionEvent actionEvent) {
@@ -269,9 +299,33 @@ public class StudentFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        transaction.commit();
-        session.close();
+        getAll();
+        setCellValueFactory();
+    }
+
+    private void setCellValueFactory() {
+        clmid.setCellValueFactory(new PropertyValueFactory<>("sId"));
+        clmname.setCellValueFactory(new PropertyValueFactory<>("sName"));
+        clmaddress.setCellValueFactory(new PropertyValueFactory<>("sAddress"));
+        clmcontact.setCellValueFactory(new PropertyValueFactory<>("sContact"));
+        clmdob.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clmgender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+    }
+
+    private void getAll() {
+        observableList = FXCollections.observableArrayList();
+        List<StudentDTO> allStudent = studentBO.getAllStudent();
+
+        for (StudentDTO studentDTO : allStudent){
+            observableList.add(new StudentTM(
+                    studentDTO.getSId(),
+                    studentDTO.getSName(),
+                    studentDTO.getSAddress(),
+                    studentDTO.getSContact(),
+                    studentDTO.getDate(),
+                    studentDTO.getGender()
+            ));
+        }
+        tblstudent.setItems(observableList);
     }
 }

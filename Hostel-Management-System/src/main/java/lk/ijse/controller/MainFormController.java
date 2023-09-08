@@ -4,13 +4,19 @@ package lk.ijse.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.utill.FactoryConfiguration;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainFormController {
+public class MainFormController implements Initializable {
     @FXML
     private AnchorPane root;
     private ActionEvent btnDashboard;
@@ -25,4 +31,11 @@ public class MainFormController {
         stage.centerOnScreen();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        transaction.commit();
+        session.close();
+    }
 }
