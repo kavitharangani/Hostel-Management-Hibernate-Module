@@ -92,9 +92,9 @@ public class RoomFormController implements Initializable {
             }
 
             if (isDelete) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Room deleted successfully").show();
-            } else {
                 new Alert(Alert.AlertType.ERROR, "Room deleted successfully").show();
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Room deleted successfully").show();
             }
         } else {
             new Alert(Alert.AlertType.ERROR, "Room not found").show();
@@ -159,9 +159,9 @@ public class RoomFormController implements Initializable {
         }
 
         if (isSave) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Room saved successfully").show();
-        } else {
             new Alert(Alert.AlertType.ERROR, "Room saved successfully").show();
+        } else {
+            new Alert(Alert.AlertType.CONFIRMATION, "Room saved successfully").show();
         }
 
         roomid.setText("");
@@ -252,9 +252,9 @@ public class RoomFormController implements Initializable {
         }
 
         if (isUpdate) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Room updated successfully").show();
-        } else {
             new Alert(Alert.AlertType.ERROR, "Room updated successfully").show();
+        } else {
+            new Alert(Alert.AlertType.CONFIRMATION, "Room updated successfully").show();
         }
         roomid.setText("");
         roomtype.setText("");

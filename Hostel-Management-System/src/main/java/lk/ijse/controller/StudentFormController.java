@@ -140,9 +140,9 @@ public class StudentFormController implements Initializable {
         }
 
         if (isSave) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Student saved successfully").show();
-        } else {
             new Alert(Alert.AlertType.ERROR, "Student saved successfully").show();
+        } else {
+            new Alert(Alert.AlertType.CONFIRMATION, "Student saved successfully").show();
         }
 
         clearAll();
@@ -234,9 +234,9 @@ public class StudentFormController implements Initializable {
         }
 
         if (isUpdate) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Update successful").show();
-        } else {
             new Alert(Alert.AlertType.ERROR, "Update successful").show();
+        } else {
+            new Alert(Alert.AlertType.CONFIRMATION, "Update successful").show();
         }
 
         clearAll();

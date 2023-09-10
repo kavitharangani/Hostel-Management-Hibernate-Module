@@ -393,9 +393,9 @@ public class ReservationController implements Initializable {
         boolean isReserved = reservationBO.addRevervation(new ReservationDTO(id, localDate, keyMoney, balance, roomDTO, studentDTO));
 
         if (isReserved) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Saved!!").show();
+            new Alert(Alert.AlertType.ERROR, "It is Saved!!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "saved !!!").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "It is saved !!!").show();
         }
         }
 
